@@ -1,0 +1,132 @@
+/* Icon Component Styles */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  user-select: none;
+  vertical-align: middle;
+}
+
+.icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.icon--svg {
+  fill: currentColor;
+}
+
+.icon--svg path {
+  fill: currentColor;
+}
+
+/* Icon size variants */
+.icon--xs {
+  width: 12px;
+  height: 12px;
+}
+
+.icon--sm {
+  width: 16px;
+  height: 16px;
+}
+
+.icon--md {
+  width: 20px;
+  height: 20px;
+}
+
+.icon--lg {
+  width: 24px;
+  height: 24px;
+}
+
+.icon--xl {
+  width: 32px;
+  height: 32px;
+}
+
+.icon--2xl {
+  width: 48px;
+  height: 48px;
+}
+
+/* Icon color variants */
+.icon--primary {
+  color: var(--color-primary);
+}
+
+.icon--secondary {
+  color: var(--color-text-secondary);
+}
+
+.icon--success {
+  color: var(--color-success);
+}
+
+.icon--warning {
+  color: var(--color-warning);
+}
+
+.icon--error {
+  color: var(--color-error);
+}
+
+.icon--muted {
+  color: var(--color-text-tertiary);
+}
+
+/* Interactive icon states */
+.icon--interactive {
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.icon--interactive:hover {
+  transform: scale(1.1);
+}
+
+.icon--interactive:active {
+  transform: scale(0.95);
+}
+
+/* Icon in buttons */
+.btn .icon {
+  pointer-events: none;
+}
+
+/* Accessibility */
+.icon[aria-hidden="false"] {
+  /* If icon has semantic meaning, ensure proper focus styles */
+}
+
+.icon:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .icon {
+    filter: contrast(1.5);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .icon--interactive {
+    transition: none;
+  }
+  
+  .icon--interactive:hover {
+    transform: none;
+  }
+  
+  .icon--interactive:active {
+    transform: none;
+  }
+}
