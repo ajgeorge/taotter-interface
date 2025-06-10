@@ -45,7 +45,7 @@ const FeatureCard = ({
       </div>
       
       <div className="feature-card__content">
-        <h3 className="feature-card__title">{title}</h3>
+        <h2 className="feature-card__title">{title}</h2>
         <p className="feature-card__description">{description}</p>
       </div>
     </>

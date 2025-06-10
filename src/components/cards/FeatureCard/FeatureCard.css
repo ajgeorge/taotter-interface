@@ -13,9 +13,9 @@
   padding: var(--spacing-8) var(--spacing-6);
   
   /* Styling */
-  background-color: var(--color-bg-primary);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-xl);
+  background-color: white;
+  border: none;
+  border-radius: 0;
   box-shadow: var(--shadow-sm);
   
   /* Transitions */
@@ -51,18 +51,17 @@
 
 /* Card variants */
 .feature-card--default {
-  background-color: var(--color-bg-primary);
-  border-color: var(--color-border-light);
+  background-color: white;
+  border: none;
 }
 
 .feature-card--outlined {
-  background-color: transparent;
-  border-color: var(--color-border-medium);
-  border-width: 2px;
+  background-color: white;
+  border: none;
 }
 
 .feature-card--elevated {
-  background-color: var(--color-bg-primary);
+  background-color: white;
   border: none;
   box-shadow: var(--shadow-md);
 }
@@ -102,9 +101,9 @@
   width: 100%;
 }
 
-/* Title styles - H1 equivalent */
+/* Title styles - H2 made bigger */
 .feature-card__title {
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
   color: var(--color-text-primary);
@@ -148,7 +147,7 @@
   }
   
   .feature-card__title {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-2xl);
     margin-bottom: var(--spacing-3);
   }
   
@@ -201,16 +200,15 @@
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
   .feature-card--default {
-    background-color: var(--color-gray-800);
-    border-color: var(--color-gray-700);
+    background-color: white;
   }
   
   .feature-card--outlined {
-    border-color: var(--color-gray-600);
+    background-color: white;
   }
   
   .feature-card--elevated {
-    background-color: var(--color-gray-800);
+    background-color: white;
   }
 }
 
