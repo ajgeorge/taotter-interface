@@ -1,0 +1,39 @@
+@import "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Outfit:wght@400;500&display=swap";
+
+.chatPage {
+  padding: var(--spacing-6, 24px) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-6, 24px);
+  width: 100%;
+  background: #f8fafc;
+}
+
+.container {
+  padding: 0 var(--spacing-4, 16px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-4, 16px);
+  width: 100%;
+  max-width: 1200px;
+}
+
+.chatLayout {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.sidebarContainer {
+  padding: 0 var(--spacing-4, 16px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-6, 24px);
+  width: 400px;
+  flex-shrink: 0;
+}

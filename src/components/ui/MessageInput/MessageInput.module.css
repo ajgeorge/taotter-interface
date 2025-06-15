@@ -1,0 +1,66 @@
+.inputBar {
+  border-top: 1px solid var(--border-color, #e4e7ec);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 60px;
+  padding: 12px 12px 12px 16px;
+  background: #fff;
+}
+
+.inputWithIcons {
+  flex: 1 0 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 0 8px;
+}
+
+.emojiIcon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input {
+  flex: 1 0 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'Outfit', Montserrat, Arial, sans-serif;
+  font-size: 14px;
+  color: #344054;
+  padding: 8px 0;
+}
+
+.input::placeholder {
+  color: #98a2b3;
+}
+
+.iconGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sendButton {
+  border: none;
+  background: #1378d1;
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.sendButton img {
+  width: 20px;
+  height: 20px;
+}

@@ -1,0 +1,164 @@
+.admin-chat-list {
+  border-radius: 16px;
+  border: 1px solid #e4e7ec;
+  background: #fff;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  width: 324px;
+  min-width: 260px;
+  max-width: 340px;
+  height: 700px;
+  overflow: hidden;
+}
+
+.admin-chat-list__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.admin-chat-list__title {
+  color: #1d2939;
+  font-family: Montserrat, 'Outfit', Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.admin-chat-list__menu-btn {
+  background: none;
+  border: none;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.admin-chat-list__search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 20px 12px 20px;
+}
+
+.admin-chat-list__search input {
+  flex: 1;
+  border-radius: 8px;
+  border: 1px solid #d0d5dd;
+  background: #fff;
+  font-size: 14px;
+  padding: 10px 16px;
+  color: #101828;
+  font-family: inherit;
+  outline: none;
+  box-shadow: 0 1px 2px #1018280d;
+}
+
+.admin-chat-list__search-icon {
+  display: flex;
+  align-items: center;
+  color: #323544;
+}
+
+.admin-chat-list__contacts {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 8px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-chat-list__contact {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.13s;
+  background: #fff;
+}
+
+.admin-chat-list__contact--selected {
+  background: #f2f4f7;
+}
+
+.admin-chat-list__avatar-wrap {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-chat-list__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #d3d3d3;
+}
+
+.admin-chat-list__status {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 6px;
+  border: 1.5px solid #fff;
+  box-sizing: border-box;
+}
+
+.admin-chat-list__status--online {
+  background: #12b76a;
+}
+.admin-chat-list__status--busy {
+  background: #f79009;
+}
+.admin-chat-list__status--offline {
+  background: #f04438;
+}
+
+.admin-chat-list__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-chat-list__name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-chat-list__name {
+  color: #1d2939;
+  font-family: 'Outfit', Montserrat, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.admin-chat-list__last-active {
+  color: #98a2b3;
+  font-size: 12px;
+  font-family: 'Outfit', Montserrat, Arial, sans-serif;
+  font-weight: 400;
+}
+
+.admin-chat-list__role {
+  color: #667085;
+  font-size: 12px;
+  font-family: 'Outfit', Montserrat, Arial, sans-serif;
+  font-weight: 400;
+}

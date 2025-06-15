@@ -1,0 +1,280 @@
+/* Button Component Styles */
+.btn {
+  /* Base button styles */
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  
+  /* Touch-friendly */
+  min-height: 44px;
+  touch-action: manipulation;
+  
+  /* Focus styles */
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* Primary Button - Your main button spec (272x58px, 45px border-radius) */
+.btn--primary {
+  width: 272px;
+  height: 58px;
+  padding: 17px 25px;
+  border-radius: 45px;
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background-color: var(--color-blue-600);
+  border-color: var(--color-blue-600);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--primary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Secondary Button - Your secondary spec (303x52px, 6px border-radius, 0.4 opacity) */
+.btn--secondary {
+  width: 303px;
+  height: 52px;
+  padding: 16px 15px;
+  border-radius: 6px;
+  background-color: transparent;
+  border-color: var(--color-border-medium);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  opacity: 0.4;
+}
+
+.btn--secondary:hover:not(:disabled) {
+  opacity: 1;
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn--secondary:active:not(:disabled) {
+  background-color: var(--color-bg-tertiary);
+}
+
+/* Floating Button - Your floating spec (80x80px, circular, WhatsApp icon) */
+.btn--floating {
+  width: 80px;
+  height: 80px;
+  padding: 1px;
+  border-radius: 80px;
+  background-color: #25D366; /* WhatsApp green */
+  border-color: #25D366;
+  color: white;
+  position: fixed;
+  bottom: var(--spacing-6);
+  right: var(--spacing-6);
+  z-index: var(--z-fixed);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn--floating:hover:not(:disabled) {
+  background-color: #128C7E; /* Darker WhatsApp green */
+  border-color: #128C7E;
+  transform: scale(1.05);
+  box-shadow: var(--shadow-xl);
+}
+
+.btn--floating:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.btn--floating .btn__content {
+  font-size: 0; /* Hide text, show only icon */
+}
+
+.btn--floating .btn__icon {
+  font-size: 24px;
+}
+
+/* Size variants for responsive design */
+.btn--small {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-sm);
+  min-height: 36px;
+}
+
+.btn--medium {
+  padding: var(--spacing-3) var(--spacing-6);
+  font-size: var(--font-size-base);
+  min-height: 44px;
+}
+
+.btn--large {
+  padding: var(--spacing-4) var(--spacing-8);
+  font-size: var(--font-size-lg);
+  min-height: 52px;
+}
+
+/* Button states */
+.btn--disabled,
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn--loading {
+  cursor: wait;
+  pointer-events: none;
+}
+
+/* Button content and icon styles */
+.btn__content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--transition-fast);
+}
+
+.btn__content--loading {
+  opacity: 0;
+}
+
+.btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25em;
+}
+
+.btn__icon svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+/* Loading spinner */
+.btn__spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn__spinner-icon {
+  width: 1.25em;
+  height: 1.25em;
+  animation: btn-spin 1s linear infinite;
+}
+
+.btn__spinner-icon circle {
+  animation: btn-dash 1.5s ease-in-out infinite;
+}
+
+@keyframes btn-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes btn-dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 767px) {
+  .btn--primary {
+    width: 100%;
+    max-width: 272px;
+  }
+  
+  .btn--secondary {
+    width: 100%;
+    max-width: 303px;
+  }
+  
+  .btn--floating {
+    bottom: var(--spacing-4);
+    right: var(--spacing-4);
+    width: 56px;
+    height: 56px;
+  }
+  
+  .btn--floating .btn__icon {
+    font-size: 20px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn {
+    border-width: 2px;
+  }
+  
+  .btn--primary:focus-visible,
+  .btn--secondary:focus-visible,
+  .btn--floating:focus-visible {
+    outline-width: 3px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+  
+  .btn__spinner-icon {
+    animation: none;
+  }
+  
+  .btn__spinner-icon circle {
+    animation: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .btn--secondary {
+    border-color: var(--color-gray-600);
+    color: var(--color-text-primary);
+  }
+  
+  .btn--secondary:hover:not(:disabled) {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-primary);
+  }
+}

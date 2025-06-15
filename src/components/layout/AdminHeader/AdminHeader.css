@@ -1,0 +1,63 @@
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 24px;
+  background: #fff;
+  border-bottom: 1px solid #e4e7ec;
+  z-index: 1100;
+  position: relative;
+}
+.menu-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.menu-btn:hover {
+  background: #f3f4f6;
+}
+.admin-header-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.notif-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.15s;
+  position: relative;
+}
+.notif-btn:hover {
+  background: #f3f4f6;
+}
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+}
+.user-name {
+  font-size: 15px;
+  color: #344054;
+  font-weight: 500;
+}
+@media (max-width: 767px) {
+  .admin-header {
+    padding: 0 12px;
+    height: 56px;
+  }
+  .user-name {
+    display: none;
+  }
+}

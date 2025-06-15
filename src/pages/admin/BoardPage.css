@@ -1,0 +1,134 @@
+.board-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+}
+
+.board-page-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  margin-top: 8px;
+}
+
+.board-page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #101828;
+  font-family: Montserrat, Arial, sans-serif;
+}
+
+.board-page-breadcrumb {
+  flex-shrink: 0;
+}
+
+.board-main-container {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 1px 4px rgba(52,64,84,0.04);
+  padding: 24px 24px 32px 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.board-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  gap: 12px;
+}
+
+.board-toolbar-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #f2f4f7;
+  border-radius: 10px;
+  padding: 2px;
+}
+
+.board-toolbar-tab {
+  border: none;
+  background: transparent;
+  color: #344054;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'Outfit', Montserrat, Arial, sans-serif;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.13s, color 0.13s;
+}
+
+.board-toolbar-tab.active {
+  background: #fff;
+  color: #1378d1;
+  font-weight: 600;
+}
+
+.board-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.board-toolbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: #f2f4f7;
+  color: #344054;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'Outfit', Montserrat, Arial, sans-serif;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.13s, color 0.13s;
+}
+
+.board-toolbar-btn svg {
+  margin-right: 4px;
+}
+
+.board-toolbar-btn--primary {
+  background: #1378d1;
+  color: #fff;
+  font-weight: 600;
+}
+
+.board-toolbar-btn--primary svg path {
+  stroke: #fff;
+}
+
+@media (max-width: 1200px) {
+  .board-page {
+    max-width: 100vw;
+    padding: 0 8px;
+  }
+  .board-main-container {
+    padding: 16px 4px 24px 4px;
+  }
+}
+
+@media (max-width: 900px) {
+  .board-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .board-kanban {
+    flex-direction: column;
+    gap: 18px;
+  }
+}

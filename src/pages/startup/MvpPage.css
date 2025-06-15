@@ -1,0 +1,402 @@
+/* MVP Page Styles */
+.mvp-page {
+  background: linear-gradient(180deg, #fff 0%, #ece9e6 100%);
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 64px; /* Account for fixed header */
+  padding-bottom: 80px; /* Account for footer */
+}
+
+/* Hero Section */
+.mvp-hero-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 64px 19.5px 27.3px;
+  width: 100%;
+}
+
+.mvp-container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mvp-content {
+  width: 100%;
+  max-width: 390px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 11.29px;
+}
+
+/* Profile Image */
+.profile-image-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Content Area */
+.content-area {
+  width: 100%;
+  height: auto;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+/* Badge Container */
+.badge-container {
+  width: 100%;
+  max-width: 608px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accent-line {
+  background: #2b91c8;
+  width: 42px;
+  height: 3px;
+}
+
+.badge-text {
+  flex: 1 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.badge-text span {
+  color: #087fc0;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+/* Main Heading */
+.main-heading {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.main-heading h1 {
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 44px;
+  margin: 0;
+}
+
+.main-heading h1::first-line {
+  color: #000;
+}
+
+.main-heading h1 {
+  color: #087fc0;
+}
+
+/* Subtitle */
+.subtitle-container {
+  width: 100%;
+  padding: 2px 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.subtitle-container p {
+  color: #000;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 27px;
+  margin: 0;
+}
+
+/* Features Container */
+.features-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.features-card {
+  background: #fff;
+  border-radius: 4px;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/* Feature Item */
+.feature-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.feature-icon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.feature-icon .icon {
+  color: #087fc0;
+}
+
+.feature-content {
+  flex: 1 0 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.feature-text {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.feature-text h3 {
+  color: #333;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  margin: 0;
+}
+
+.feature-text p {
+  color: #333;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 27px;
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+/* CTA Button */
+.cta-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.lets-start-btn {
+  opacity: 0.4;
+  background: linear-gradient(90deg, #087fc0 0%, #1bb3c9 100%) !important;
+  border-radius: 24px !important;
+  border: none !important;
+  padding: 16px 15px !important;
+  color: #fff !important;
+  text-align: center;
+  font-size: 24px !important;
+  font-style: normal;
+  font-weight: 700 !important;
+  line-height: 20px !important;
+  cursor: not-allowed;
+}
+
+/* Disclaimer */
+.disclaimer-container {
+  width: 100%;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.disclaimer-container p {
+  color: #000;
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 27px;
+  margin: 0;
+  width: 100%;
+}
+
+/* WhatsApp Float */
+.whatsapp-float {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+.whatsapp-button {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.whatsapp-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.whatsapp-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 31px;
+  height: 31px;
+}
+
+.whatsapp-indicator {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 15px;
+  height: 15px;
+  background: #00b94a;
+  border-radius: 15px;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .mvp-content {
+    max-width: 600px;
+  }
+  
+  .profile-image-container {
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+    align-items: center;
+  }
+  
+  .profile-image {
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+  }
+  
+  .content-area {
+    height: auto;
+    min-height: 280px;
+  }
+  
+  .main-heading h1 {
+    font-size: 48px;
+    line-height: 52px;
+  }
+  
+  .subtitle-container p {
+    font-size: 20px;
+    line-height: 30px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mvp-hero-section {
+    padding: 80px 40px 40px;
+  }
+  
+  .mvp-content {
+    max-width: 800px;
+    flex-direction: row;
+    align-items: center;
+    gap: 60px;
+  }
+  
+  .profile-image-container {
+    flex: 1;
+    max-width: 400px;
+  }
+  
+  .content-area {
+    flex: 1;
+    max-width: 400px;
+  }
+  
+  .main-heading h1 {
+    font-size: 56px;
+    line-height: 60px;
+  }
+  
+  .subtitle-container p {
+    font-size: 22px;
+    line-height: 32px;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 390px) {
+  .mvp-hero-section {
+    padding: 64px 15px 27.3px;
+  }
+  
+  .mvp-content {
+    max-width: 100%;
+  }
+  
+  .profile-image-container {
+    width: 100%;
+    height: 250px;
+  }
+  
+  .profile-image {
+    width: 100%;
+    height: 250px;
+  }
+  
+  .main-heading h1 {
+    font-size: 32px;
+    line-height: 36px;
+  }
+  
+  .subtitle-container p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}

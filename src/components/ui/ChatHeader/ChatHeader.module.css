@@ -1,0 +1,35 @@
+.header {
+  padding: var(--spacing-4, 16px) var(--spacing-5, 20px);
+  border-bottom: 1px solid var(--border-color, #e4e7ec);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 74px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3, 12px);
+}
+
+.userName {
+  color: var(--text-secondary-color, #667085);
+  font-family: 'Outfit', Montserrat, Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  display: inline-block;
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3, 12px);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}

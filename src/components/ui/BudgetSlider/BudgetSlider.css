@@ -1,0 +1,135 @@
+/* Budget Slider Component Styles */
+.budget-slider-container {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.budget-slider-label {
+  display: block;
+  color: #333;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+  margin-bottom: 8px;
+}
+
+.budget-slider-wrapper {
+  width: 100%;
+  padding-top: 7px;
+}
+
+.budget-slider-track-container {
+  position: relative;
+  margin-bottom: 21px;
+}
+
+.budget-slider-track {
+  position: relative;
+  width: 100%;
+  height: 16px;
+  background: #5d5a5a;
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.budget-slider-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #087fc0 0%, #1bb3c9 100%);
+  border-radius: 9px;
+  transition: width 0.2s ease;
+}
+
+.budget-slider-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Webkit Slider Thumb */
+.budget-slider-input::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #087fc0;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.budget-slider-input::-webkit-slider-thumb:hover {
+  background: #066ba3;
+}
+
+.budget-slider-input.dragging::-webkit-slider-thumb {
+  background: #066ba3;
+  transform: scale(1.1);
+}
+
+/* Firefox Slider Thumb */
+.budget-slider-input::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #087fc0;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.budget-slider-input::-moz-range-thumb:hover {
+  background: #066ba3;
+}
+
+/* Firefox Slider Track */
+.budget-slider-input::-moz-range-track {
+  background: transparent;
+  border: none;
+}
+
+.budget-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.budget-slider-label-item {
+  flex-direction: column;
+  align-items: center;
+  width: 20px;
+  display: flex;
+  color: #333;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  transition: all 0.2s ease;
+}
+
+.budget-slider-label-item.active {
+  color: #139ac5;
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 390px) {
+  .budget-slider-labels {
+    font-size: 12px;
+  }
+  
+  .budget-slider-label-item {
+    font-size: 12px;
+  }
+}

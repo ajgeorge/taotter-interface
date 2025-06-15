@@ -1,0 +1,110 @@
+.sidebar {
+  padding-bottom: var(--spacing-4, 16px);
+  border-radius: var(--border-radius-2xl, 16px);
+  border: 1px solid var(--border-color, #e4e7ec);
+  background: var(--card-background, #fff);
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 130px;
+  display: flex;
+  overflow: hidden;
+}
+
+.header {
+  padding: var(--spacing-4, 16px);
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  display: flex;
+}
+
+.title {
+  color: var(--text-title-color, #1d2939);
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px;
+  display: inline-block;
+}
+
+.menuButton {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.searchSection {
+  padding: 0 var(--spacing-4, 16px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.menuIcon {
+  border-radius: var(--border-radius-lg, 8px);
+  border: 1px solid var(--border-tertiary, #d0d5dd);
+  background: var(--card-background, #fff);
+  box-sizing: border-box;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  display: flex;
+  cursor: pointer;
+  height: 44px;
+  width: 44px;
+  flex-shrink: 0;
+}
+
+.searchInputWrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.searchIconContainer {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.searchIcon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
+}
+
+.searchField {
+  border-radius: var(--border-radius-lg, 8px);
+  border: 1px solid var(--border-tertiary, #d0d5dd);
+  background: var(--background-body, #fff);
+  box-sizing: border-box;
+  width: 100%;
+  height: 44px;
+  padding: 10px 16px 10px 44px;
+  font-family: Montserrat;
+  font-size: 14px;
+  color: var(--text-color, #344054);
+  outline: none;
+  box-shadow: 0 1px 2px #1018280d;
+}
+
+.searchField::placeholder {
+  color: var(--placeholder-color, #98a2b3);
+}
+
+.searchField:focus {
+  border-color: var(--primary-color, #1378d1);
+  box-shadow: 0 0 0 3px rgba(19, 120, 209, 0.1);
+}

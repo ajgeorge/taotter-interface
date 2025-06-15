@@ -1,0 +1,318 @@
+/* Sprint Onboarding Step 2 Styles */
+.credit-tier-card {
+  height: 1862.59px;
+}
+
+.sprint-onboarding-header {
+  background: #1378d1;
+  padding: 80px 32px 42px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.sprint-onboarding-content {
+  padding-top: 48px !important;
+}
+
+/* Credit Tiers */
+.credit-tiers {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+.credit-tier-option {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px;
+  width: 100%;
+  max-width: 299px;
+  margin: 0 auto;
+  transition: border-color 0.2s ease;
+}
+
+.credit-tier-option:hover {
+  border-color: #087fc0;
+}
+
+.tier-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.tier-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  max-width: 284px;
+}
+
+.tier-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+
+.tier-name {
+  color: #333;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.tier-description {
+  color: #333;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.tier-pricing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+}
+
+.hourly-rate {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.original-rate {
+  color: #f04438;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  text-decoration: line-through;
+}
+
+.current-rate {
+  color: #333;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.tier-details-text {
+  color: #333;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.tier-ideal {
+  color: #aaa;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.tier-breakdown {
+  color: #212121;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.tier-breakdown b,
+.tier-breakdown .breakdown-label {
+  font-weight: 700;
+}
+
+/* Tier Action */
+.tier-action {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 24px;
+  gap: 12px;
+  min-width: 0;
+  flex-wrap: nowrap;
+}
+
+.tier-select-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid #465fff;
+  background: #1378d1;
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  width: 80px;
+  min-width: 80px;
+  max-width: 90px;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.tier-total {
+  color: #333;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: right;
+  margin-left: auto;
+  width: auto;
+  min-width: 80px;
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.tier-select-btn:hover {
+  background: #0f6ba8;
+}
+
+.tier-select-btn.selected {
+  background: #087fc0;
+  border-color: #087fc0;
+  box-shadow: 0 0 0 2px rgba(8, 127, 192, 0.2);
+}
+
+/* Navigation - inherits from Step 1 */
+.credit-tier-card .onboarding-navigation {
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.credit-tier-card .next-button:not(:disabled) {
+  opacity: 1;
+}
+
+.credit-tier-card .next-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .credit-tier-card {
+    height: auto;
+    min-height: 800px;
+  }
+  
+  .credit-tier-option {
+    max-width: 100%;
+  }
+  
+  .tier-info {
+    max-width: 100%;
+  }
+  
+  .tier-action {
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+  }
+  
+  .tier-select-btn {
+    width: 80px;
+    min-width: 80px;
+    max-width: 90px;
+  }
+  
+  .tier-total {
+    text-align: right;
+    width: auto;
+    min-width: 80px;
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+@media (max-width: 390px) {
+  .credit-tier-card {
+    height: auto;
+    min-height: 700px;
+  }
+  
+  .tier-name,
+  .tier-description,
+  .current-rate,
+  .original-rate {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  
+  .tier-details-text {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  
+  .tier-ideal,
+  .tier-breakdown {
+    font-size: 11px;
+    line-height: 18px;
+  }
+  
+  .tier-select-btn {
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+  
+  .tier-total {
+    font-size: 14px;
+  }
+}
+
+/* Focus States */
+.tier-select-btn:focus-visible {
+  outline: 2px solid #087fc0;
+  outline-offset: 2px;
+}
+
+/* Animation for selection */
+.credit-tier-option {
+  position: relative;
+}
+
+.credit-tier-option::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #087fc0, #1bb3c9);
+  border-radius: 8px;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.2s ease;
+}
+
+.credit-tier-option:has(.tier-select-btn.selected)::before {
+  opacity: 0.1;
+}
