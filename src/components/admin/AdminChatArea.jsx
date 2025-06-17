@@ -31,22 +31,6 @@ export default function AdminChatArea({
           <span className="admin-chat-area__name">{contact.name}</span>
         </div>
         <div className="admin-chat-area__actions">
-          <button className="admin-chat-area__icon-btn" aria-label="Call">
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path d="M5.54488 11.7254L8.80112 10.056C8.94007 9.98476 9.071 9.89524 9.16639 9.77162C9.57731 9.23912 9.66722 8.51628 9.38366 7.89244L7.76239 4.32564C7.23243 3.15974 5.7011 2.88206 4.79552 3.78764L3.72733 4.85577C3.36125 5.22182 3.18191 5.73847 3.27376 6.24794C3.9012 9.72846 5.56003 13.0595 8.25026 15.7497C10.9405 18.44 14.2716 20.0988 17.7521 20.7262C18.2615 20.8181 18.7782 20.6388 19.1442 20.2727L20.2124 19.2045C21.118 18.2989 20.8403 16.7676 19.6744 16.2377L16.1076 14.6164C15.4838 14.3328 14.7609 14.4227 14.2284 14.8336C14.1048 14.929 14.0153 15.06 13.944 15.1989L12.2747 18.4552" stroke="#1D2939" strokeWidth="1.5" />
-            </svg>
-          </button>
-          <button className="admin-chat-area__icon-btn" aria-label="Video">
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <rect x="3" y="0.75" width="10" height="12.5" rx="5" stroke="#323544" strokeWidth="1.5" />
-              <path d="M16 8.25C16 12.6683 12.4183 16.25 8 16.25C3.58172 16.25 0 12.6683 0 8.25" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" />
-              <path d="M6 19.25H10" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M8 16.25L8 19.25" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M8 5.5L8 8.5" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M10.5 6.25L10.5 7.75" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M5.5 6.25L5.5 7.75" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
           <button className="admin-chat-area__icon-btn" aria-label="Menu">
             <svg width="4" height="16" fill="none" viewBox="0 0 4 16">
               <path d="M2.18262 12.2588C3.06529 12.3482 3.75391 13.0937 3.75391 14C3.75391 14.9063 3.06529 15.6518 2.18262 15.7412L2.00391 15.75H1.99414C1.02764 15.75 0.244141 14.9665 0.244141 14C0.244141 13.0335 1.02764 12.25 1.99414 12.25H2.00391L2.18262 12.2588ZM2.18262 6.25879C3.06529 6.34819 3.75391 7.09375 3.75391 8C3.75391 8.90625 3.06529 9.65181 2.18262 9.74121L2.00391 9.75H1.99414C1.02764 9.75 0.244141 8.9665 0.244141 8C0.244141 7.0335 1.02764 6.25 1.99414 6.25H2.00391L2.18262 6.25879ZM2.18262 0.258789C3.06529 0.348189 3.75391 1.09375 3.75391 2C3.75391 2.90625 3.06529 3.65181 2.18262 3.74121L2.00391 3.75H1.99414C1.02764 3.75 0.244141 2.9665 0.244141 2C0.244141 1.0335 1.02764 0.25 1.99414 0.25H2.00391L2.18262 0.258789Z" fill="#344054" />
@@ -109,17 +93,6 @@ export default function AdminChatArea({
         <button type="button" className="admin-chat-area__icon-btn" aria-label="Attach" onClick={onAttach}>
           <svg width="16" height="20" fill="none" viewBox="0 0 16 20">
             <path d="M4.29785 0C6.52033 1.94296e-07 8.33511 1.74558 8.44629 3.94043L8.4502 4.11133C8.45099 4.12545 8.45312 4.13998 8.45312 4.1543V14.1445C8.4529 15.4984 7.35491 16.5966 6.00098 16.5967C4.73172 16.5966 3.68737 15.6316 3.56152 14.3955L3.54883 14.1445V4.1543C3.54883 3.74013 3.88468 3.40437 4.29883 3.4043C4.71304 3.4043 5.04883 3.74008 5.04883 4.1543V14.1445L5.05371 14.2422C5.10276 14.7219 5.50838 15.0966 6.00098 15.0967C6.52648 15.0966 6.9529 14.67 6.95312 14.1445V12.4609C6.95297 12.4548 6.95215 12.4486 6.95215 12.4424V4.1543L6.93848 3.88281C6.80264 2.54451 5.67199 1.5 4.29785 1.5C2.83241 1.5003 1.64453 2.68879 1.64453 4.1543V14.1436C1.64453 16.549 3.59464 18.4997 6 18.5C8.40565 18.5 10.3564 16.5492 10.3564 14.1436V7.55762C10.3565 7.14356 10.6924 6.80777 11.1064 6.80762C11.5205 6.80777 11.8564 7.14356 11.8564 7.55762V14.1436C11.8564 17.3776 9.23408 20 6 20C2.76621 19.9997 0.144531 17.3774 0.144531 14.1436V4.1543C0.144531 1.86036 2.00398 0.000301954 4.29785 0Z" fill="#667085" />
-          </svg>
-        </button>
-        <button type="button" className="admin-chat-area__icon-btn" aria-label="Mic" onClick={onMic}>
-          <svg width="16" height="20" fill="none" viewBox="0 0 16 20">
-            <rect x="3" y="0.75" width="10" height="12.5" rx="5" stroke="#667085" strokeWidth="1.5" />
-            <path d="M16 8.25C16 12.6683 12.4183 16.25 8 16.25C3.58172 16.25 0 12.6683 0 8.25" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" />
-            <path d="M6 19.25H10" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M8 16.25L8 19.25" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M8 5.5L8 8.5" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M10.5 6.25L10.5 7.75" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M5.5 6.25L5.5 7.75" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
         <button type="submit" className="admin-chat-area__send-btn" aria-label="Send">

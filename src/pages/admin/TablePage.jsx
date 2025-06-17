@@ -90,7 +90,7 @@ export default function TablePage() {
   return (
     <div className="admin-table-page">
       <div className="admin-table-header-row">
-        <h1 className="admin-table-title">Table</h1>
+        <h1 className="admin-table-title">Requests</h1>
         <Breadcrumb
           items={[
             { label: "Home", href: "/admin/dashboard" },

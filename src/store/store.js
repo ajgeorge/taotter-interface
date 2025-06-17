@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
 // API slices
-import { baseApi } from './api/baseApi'
+import { api as baseApi } from './api/api'
 import { authApi } from './api/authApi'
 import { startupApi } from './api/startupApi'
 import { adminApi } from './api/adminApi'
@@ -11,6 +11,7 @@ import { sprintsApi } from './api/sprintsApi'
 import { boardsApi } from './api/boardsApi'
 import { tasksApi } from './api/tasksApi'
 import { analyticsApi } from './api/analyticsApi'
+import { chatApi } from './api/chatApi'
 
 // Redux slices
 import authReducer from './slices/authSlice'
@@ -36,6 +37,7 @@ export const store = configureStore({
     [boardsApi.reducerPath]: boardsApi.reducer,
     [tasksApi.reducerPath]: tasksApi.reducer,
     [analyticsApi.reducerPath]: analyticsApi.reducer,
+    [chatApi.reducerPath]: chatApi.reducer,
     
     // State slices
     auth: authReducer,
@@ -77,16 +79,14 @@ export const store = configureStore({
       },
     })
     .concat(
-      // Add RTK Query middleware
+      // Add RTK Query middleware - only baseApi since boardsApi, tasksApi, and sprintsApi inject into it
       baseApi.middleware,
       authApi.middleware,
       startupApi.middleware,
       adminApi.middleware,
       questionnairesApi.middleware,
-      sprintsApi.middleware,
-      boardsApi.middleware,
-      tasksApi.middleware,
       analyticsApi.middleware,
+      chatApi.middleware,
     ),
   
   // Enable Redux DevTools in development
@@ -261,60 +261,33 @@ export {
 export {
   // Sprints API
   useGetSprintsQuery,
+  useGetMySprintsQuery,
   useGetSprintByIdQuery,
-  useGetMySprintQuery,
-  useCreateSprintMutation,
-  useUpdateSprintMutation,
-  useUpdateSprintStatusMutation,
-  useGetSprintPackagesQuery,
   useSelectPackageMutation,
+  useUploadDocumentsMutation,
   useScheduleMeetingMutation,
-  useUpdateSprintProgressMutation,
-  useAssignTeamToSprintMutation,
-  useAddClientFeedbackMutation,
-  useMarkSprintCompleteMutation,
-  useUploadDeliverablesMutation,
+  useGetAllSprintsQuery,
+  useCreateSprintMutation,
+  useUpdateSprintStatusMutation,
 } from './api/sprintsApi'
 
 export {
   // Boards API
   useGetBoardsQuery,
-  useGetBoardByIdQuery,
-  useGetMyBoardsQuery,
+  useGetBoardQuery,
+  useGetBoardBySprintQuery,
   useCreateBoardMutation,
   useUpdateBoardMutation,
   useDeleteBoardMutation,
-  useAddBoardColumnMutation,
-  useUpdateBoardColumnMutation,
-  useDeleteBoardColumnMutation,
-  useGetBoardTemplatesQuery,
-  useCreateBoardFromTemplateMutation,
-  useAddBoardMemberMutation,
-  useRemoveBoardMemberMutation,
+  useAddColumnMutation,
+  useUpdateColumnMutation,
+  useDeleteColumnMutation,
   useGetBoardAnalyticsQuery,
-  useToggleBoardFavoriteMutation,
 } from './api/boardsApi'
 
 export {
   // Tasks API
-  useGetTasksQuery,
-  useGetTaskByIdQuery,
-  useGetBoardTasksQuery,
-  useGetMyTasksQuery,
   useCreateTaskMutation,
-  useUpdateTaskMutation,
-  useDeleteTaskMutation,
-  useUpdateTaskStatusMutation,
-  useAssignTaskMutation,
-  useAddTaskCommentMutation,
-  useLogTimeMutation,
-  useGetTaskTimeLogsQuery,
-  useAddSubtaskMutation,
-  useUploadTaskAttachmentMutation,
-  useAddTaskLabelMutation,
-  useRemoveTaskLabelMutation,
-  useGetTaskTemplatesQuery,
-  useBulkUpdateTasksMutation,
 } from './api/tasksApi'
 
 export {

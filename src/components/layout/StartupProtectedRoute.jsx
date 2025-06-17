@@ -15,7 +15,7 @@ function isTokenExpired(token) {
   }
 }
 
-export default function AdminProtectedRoute({ children }) {
+export default function StartupProtectedRoute({ children }) {
   const location = useLocation();
   const dispatch = useDispatch();
   const { isAuthenticated, userType, token } = useSelector((state) => state.auth);
@@ -23,13 +23,13 @@ export default function AdminProtectedRoute({ children }) {
   useEffect(() => {
     if (isTokenExpired(token)) {
       dispatch(logout());
-      window.location.href = "/admin/login";
+      window.location.href = "/startup/login";
     }
   }, [dispatch, token]);
 
-  // If not authenticated or not an admin, redirect to admin login
-  if (!isAuthenticated || userType !== 'admin' || isTokenExpired(token)) {
-    return <Navigate to="/admin/login" state={{ from: location }} replace />;
+  // If not authenticated or not a startup, redirect to startup login
+  if (!isAuthenticated || userType !== 'startup' || isTokenExpired(token)) {
+    return <Navigate to="/startup/login" state={{ from: location }} replace />;
   }
 
   return children;

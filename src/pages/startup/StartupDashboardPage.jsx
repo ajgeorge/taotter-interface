@@ -1,30 +1,36 @@
 import React, { useState } from 'react'
 import { Button } from '../../components/ui'
+import { useGetMySprintsQuery } from '../../store/api/sprintsApi'
+import { useNavigate } from 'react-router-dom'
 import './StartupDashboardPage.css'
 
 const statusColors = {
-  Cancelled: 'cancelled',
-  Ongoing: 'ongoing',
-  Completed: 'completed'
+  cancelled: 'cancelled',
+  ongoing: 'ongoing',
+  completed: 'completed',
+  'in_progress': 'ongoing',
+  'on_hold': 'cancelled',
+  'package_selected': 'ongoing',
+  'documents_submitted': 'ongoing',
+  'meeting_scheduled': 'ongoing',
 }
 
-const progressData = [
-  {
-    subtitle: 'Branding',
-    title: 'Initial Draft approved',
-    status: 'Ongoing',
-    progress: 65
-  },
-  {
-    subtitle: 'Branding',
-    title: 'Initial Draft approved',
-    status: 'Completed',
-    progress: 100
-  }
-]
+function getStatusLabel(status) {
+  if (!status) return 'Ongoing'
+  if (status === 'completed') return 'Completed'
+  if (status === 'cancelled') return 'Cancelled'
+  return 'Ongoing'
+}
 
 const StartupDashboardPage = () => {
   const [showModal, setShowModal] = useState(false)
+  const { data, isLoading, error } = useGetMySprintsQuery()
+  const navigate = useNavigate()
+
+  let sprintData = []
+  if (data && data.data && data.data.sprints) {
+    sprintData = data.data.sprints
+  }
 
   return (
     <div className="dashboard-page">
@@ -35,23 +41,42 @@ const StartupDashboardPage = () => {
 
       {/* Cards Section */}
       <div className="dashboard-cards-container">
-        {progressData.map((item, idx) => (
-          <div className="dashboard-card" key={idx}>
+        {isLoading && <div>Loading sprints...</div>}
+        {error && <div style={{ color: 'red' }}>Failed to load sprints.</div>}
+        {(!isLoading && sprintData.length === 0) && (
+          <div>No active sprints found.</div>
+        )}
+        {sprintData.map((sprint, idx) => (
+          <div
+            className="dashboard-card"
+            key={sprint.id}
+            onClick={() => navigate(`/startup/sprint/${sprint.id}/board`)}
+            tabIndex={0}
+            role="button"
+            style={{ outline: 'none' }}
+            onKeyDown={e => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                navigate(`/startup/sprint/${sprint.id}/board`)
+              }
+            }}
+          >
             <div className="dashboard-card-header">
-              <span className="dashboard-card-subtitle">{item.subtitle}</span>
+              <span className="dashboard-card-subtitle">{sprint.type ? sprint.type.charAt(0).toUpperCase() + sprint.type.slice(1) : 'Sprint'}</span>
               <div className="dashboard-card-status-row">
-                <h3 className="dashboard-card-title">{item.title}</h3>
-                <span className={`dashboard-status-pill ${statusColors[item.status]}`}>{item.status}</span>
+                <h3 className="dashboard-card-title">{sprint.name}</h3>
+                <span className={`dashboard-status-pill ${statusColors[sprint.status] || 'ongoing'}`}>
+                  {getStatusLabel(sprint.status)}
+                </span>
               </div>
             </div>
             <div className="dashboard-progress-row">
               <div className="dashboard-progress-bar-outer">
                 <div
-                  className={`dashboard-progress-bar-inner ${statusColors[item.status]}`}
-                  style={{ width: `${item.progress}%` }}
+                  className={`dashboard-progress-bar-inner ${statusColors[sprint.status] || 'ongoing'}`}
+                  style={{ width: `${sprint.progress?.percentage || 0}%` }}
                 />
               </div>
-              <span className="dashboard-progress-percent">{item.progress}%</span>
+              <span className="dashboard-progress-percent">{sprint.progress?.percentage || 0}%</span>
             </div>
           </div>
         ))}

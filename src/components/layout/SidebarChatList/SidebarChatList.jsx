@@ -1,80 +1,37 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useGetChatListQuery } from '../../../store/api/chatApi';
 import styles from './SidebarChatList.module.css';
 
 export default function SidebarChatList({ onClose, isClosing = false }) {
   const navigate = useNavigate();
-  
+
+  // Fetch real chat list for startup
+  const { data, isLoading, error } = useGetChatListQuery();
+
   const handleChatClick = (chatId) => {
     navigate(`/chat/${chatId}`);
-    onClose();
+    onClose && onClose();
   };
 
-  const chats = [
-    {
-      id: 1,
-      name: 'Kaiya George',
-      role: 'Project Manager',
-      lastActive: '15 mins',
-      isOnline: true
-    },
-    {
-      id: 2,
-      name: 'Lindsey Curtis',
-      role: 'Designer',
-      lastActive: '30 mins',
-      isOnline: true
-    },
-    {
-      id: 3,
-      name: 'Zain Geidt',
-      role: 'Content Writer',
-      lastActive: '45 mins',
-      isOnline: true
-    },
-    {
-      id: 4,
-      name: 'Carla George',
-      role: 'Front-end Developer',
-      lastActive: '2 days',
-      isOnline: false
-    },
-    {
-      id: 5,
-      name: 'Abram Schleifer',
-      role: 'Digital Marketer',
-      lastActive: '1 hour',
-      isOnline: true
-    },
-    {
-      id: 6,
-      name: 'Lincoln Donin',
-      role: 'Product Designer',
-      lastActive: '3 days',
-      isOnline: true
-    },
-    {
-      id: 7,
-      name: 'Erin Geidthem',
-      role: 'Copywriter',
-      lastActive: '5 days',
-      isOnline: true
-    },
-    {
-      id: 8,
-      name: 'Alena Baptista',
-      role: 'SEO Expert',
-      lastActive: '2 hours',
-      isOnline: false
-    },
-    {
-      id: 9,
-      name: 'Wilium Vamos',
-      role: 'Content Writer',
-      lastActive: '5 days',
-      isOnline: true
-    }
-  ];
+  // Transform chat data for display
+  let chats = [];
+  if (data && data.data && data.data.chats) {
+    chats = data.data.chats.map(chat => {
+      const admin = chat.adminId;
+      return {
+        id: chat._id,
+        name: admin?.profile
+          ? `${admin.profile.firstName || ""} ${admin.profile.lastName || ""}`.trim()
+          : admin?.email || "Admin",
+        role: "Admin",
+        lastActive: chat.lastMessageAt
+          ? new Date(chat.lastMessageAt).toLocaleString()
+          : "",
+        isOnline: true // TODO: Replace with real online status if available
+      };
+    });
+  }
 
   return (
     <div className={`${styles.chatList} ${isClosing ? styles.closing : ''}`}>
@@ -90,6 +47,8 @@ export default function SidebarChatList({ onClose, isClosing = false }) {
       </div>
       
       <div className={styles.chatItems}>
+        {isLoading && <div>Loading chats...</div>}
+        {error && <div style={{ color: "red" }}>Failed to load chats.</div>}
         {chats.map((chat) => (
           <div
             key={chat.id}

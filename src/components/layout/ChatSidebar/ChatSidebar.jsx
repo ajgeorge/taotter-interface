@@ -1,9 +1,45 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useGetChatListQuery } from '../../../store/api/chatApi';
 import styles from './ChatSidebar.module.css';
 import SearchIcon from '../../../assets/icons/Search.svg';
 
-export default function ChatSidebar() {
-  const [searchQuery, setSearchQuery] = useState('');
+export default function ChatSidebar({ searchQuery, setSearchQuery }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Fetch real chat list for startup
+  const { data, isLoading, error } = useGetChatListQuery();
+
+  // Transform chat data for display
+  let chats = [];
+  if (data && data.data && data.data.chats) {
+    chats = data.data.chats.map(chat => {
+      const admin = chat.adminId;
+      return {
+        id: chat._id,
+        name: admin?.profile
+          ? `${admin.profile.firstName || ""} ${admin.profile.lastName || ""}`.trim()
+          : admin?.email || "Admin",
+        role: "Admin",
+        lastActive: chat.lastMessageAt
+          ? new Date(chat.lastMessageAt).toLocaleString()
+          : "",
+        isOnline: true // TODO: Replace with real online status if available
+      };
+    });
+  }
+
+  // Filter chats by search query
+  const filteredChats = chats.filter(chat =>
+    chat.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    chat.role.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Get selected chatId from URL
+  const selectedChatId = location.pathname.startsWith('/chat/')
+    ? location.pathname.split('/chat/')[1]
+    : null;
 
   return (
     <div className={styles.sidebar}>
@@ -35,6 +71,29 @@ export default function ChatSidebar() {
             className={styles.searchField}
           />
         </div>
+      </div>
+
+      <div className={styles.chatList}>
+        {isLoading && <div>Loading chats...</div>}
+        {error && <div style={{ color: "red" }}>Failed to load chats.</div>}
+        {filteredChats.map(chat => (
+          <div
+            key={chat.id}
+            className={`${styles.chatItem} ${selectedChatId === chat.id ? styles.selected : ""}`}
+            onClick={() => navigate(`/chat/${chat.id}`)}
+          >
+            <div className={styles.avatar}>
+              <div className={`${styles.statusIndicator} ${chat.isOnline ? styles.online : styles.offline}`}></div>
+            </div>
+            <div className={styles.chatInfo}>
+              <div className={styles.nameAndTime}>
+                <span className={styles.name}>{chat.name}</span>
+                <span className={styles.time}>{chat.lastActive}</span>
+              </div>
+              <span className={styles.role}>{chat.role}</span>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

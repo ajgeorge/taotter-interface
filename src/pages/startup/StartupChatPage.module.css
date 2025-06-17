@@ -1,13 +1,15 @@
 @import "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Outfit:wght@400;500&display=swap";
 
 .chatPage {
-  padding: var(--spacing-6, 24px) 0;
+  padding: var(--spacing-6, 24px) 0 120px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-6, 24px);
   width: 100%;
+  min-height: calc(100vh - 80px);
   background: #f8fafc;
+  box-sizing: border-box;
 }
 
 .container {
@@ -22,18 +24,10 @@
 
 .chatLayout {
   display: flex;
-  align-items: flex-start;
-  gap: 24px;
-  width: 100%;
-  max-width: 1200px;
-}
-
-.sidebarContainer {
-  padding: 0 var(--spacing-4, 16px);
-  display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--spacing-6, 24px);
-  width: 400px;
-  flex-shrink: 0;
+  width: 100%;
+  max-width: 600px;
+  padding: 0 var(--spacing-4, 16px);
 }

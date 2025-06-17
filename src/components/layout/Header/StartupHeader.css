@@ -123,6 +123,10 @@
   color: #087fc0;
 }
 
+.startup-sidebar__logout-btn {
+  color: #000 !important;
+}
+
 @media (max-width: 600px) {
   .startup-header__logo-img {
     height: 32px;

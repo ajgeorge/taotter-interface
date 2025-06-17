@@ -1,168 +1,114 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import AdminLayout from "../../layouts/AdminLayout";
 import Breadcrumb from "../../components/ui/Breadcrumb/Breadcrumb";
 import AdminChatList from "../../components/admin/AdminChatList";
 import AdminChatArea from "../../components/admin/AdminChatArea";
+import { useGetChatListQuery, useGetMessagesQuery, useSendMessageMutation } from "../../store/api/chatApi";
+import { useSelector } from "react-redux";
+import useSocket from "../../hooks/useSocket";
 import "./AdminChatPage.css";
 
-// Mock contacts
-const contacts = [
-  {
-    id: "1",
-    name: "Kaiya George",
-    role: "Project Manager",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-    status: "online",
-    lastActive: "15 mins"
-  },
-  {
-    id: "2",
-    name: "Lindsey Curtis",
-    role: "Designer",
-    avatar: "https://randomuser.me/api/portraits/women/45.jpg",
-    status: "online",
-    lastActive: "30 mins"
-  },
-  {
-    id: "3",
-    name: "Zain Geidt",
-    role: "Content Writer",
-    avatar: "https://randomuser.me/api/portraits/men/46.jpg",
-    status: "online",
-    lastActive: "45 mins"
-  },
-  {
-    id: "4",
-    name: "Carla George",
-    role: "Front-end Developer",
-    avatar: "https://randomuser.me/api/portraits/women/47.jpg",
-    status: "busy",
-    lastActive: "2 days"
-  },
-  {
-    id: "5",
-    name: "Abram Schleifer",
-    role: "Digital Marketer",
-    avatar: "https://randomuser.me/api/portraits/men/48.jpg",
-    status: "online",
-    lastActive: "1 hour"
-  },
-  {
-    id: "6",
-    name: "Lincoln Donin",
-    role: "Product Designer",
-    avatar: "https://randomuser.me/api/portraits/men/49.jpg",
-    status: "online",
-    lastActive: "3 days"
-  },
-  {
-    id: "7",
-    name: "Erin Geidthem",
-    role: "Copywriter",
-    avatar: "https://randomuser.me/api/portraits/women/50.jpg",
-    status: "online",
-    lastActive: "5 days"
-  },
-  {
-    id: "8",
-    name: "Alena Baptista",
-    role: "SEO Expert",
-    avatar: "https://randomuser.me/api/portraits/women/51.jpg",
-    status: "offline",
-    lastActive: "2 hours"
-  },
-  {
-    id: "9",
-    name: "Wilium vamos",
-    role: "Content Writer",
-    avatar: "https://randomuser.me/api/portraits/men/52.jpg",
-    status: "online",
-    lastActive: "5 days"
-  }
-];
-
-// Mock messages
-const mockMessages = [
-  {
-    id: 1,
-    sender: "Lindsey Curtis",
-    avatar: "https://randomuser.me/api/portraits/women/45.jpg",
-    content: "If don’t like something, I’ll stay away from it.",
-    time: "2 hours ago",
-    mine: false
-  },
-  {
-    id: 2,
-    sender: "Me",
-    avatar: "",
-    content: "If don’t like something, I’ll stay away from it.",
-    time: "2 hours ago",
-    mine: true
-  },
-  {
-    id: 3,
-    sender: "Lindsey Curtis",
-    avatar: "https://randomuser.me/api/portraits/women/45.jpg",
-    content: "I want more detailed information.",
-    time: "2 hours ago",
-    mine: false
-  },
-  {
-    id: 4,
-    sender: "Me",
-    avatar: "",
-    content: "If don’t like something, I’ll stay away from it.\nThey got there early, and got really good seats.",
-    time: "2 hours ago",
-    mine: true
-  },
-  {
-    id: 5,
-    sender: "Lindsey Curtis",
-    avatar: "https://randomuser.me/api/portraits/women/45.jpg",
-    content: "Please preview the image",
-    time: "2 hours ago",
-    mine: false,
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
-  }
-];
-
 export default function AdminChatPage() {
-  const { id } = useParams();
+  const { id: chatId } = useParams();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState(mockMessages);
+  const [messages, setMessages] = useState([]);
+  const [isTyping, setIsTyping] = useState(false);
 
-  // Filter contacts by search
-  const filteredContacts = contacts.filter(c =>
-    c.name.toLowerCase().includes(search.toLowerCase()) ||
-    c.role.toLowerCase().includes(search.toLowerCase())
+  // Get current user info
+  const currentUser = useSelector(state => state.auth.user);
+
+  // Fetch chat list to get contact info
+  const { data: chatListData } = useGetChatListQuery();
+
+  // Fetch messages for the selected chat
+  const { data, isLoading, error, refetch } = useGetMessagesQuery(chatId, { skip: !chatId });
+
+  // Send message mutation
+  const [sendMessage] = useSendMessageMutation();
+
+  // Find current chat and contact info
+  const currentChat = chatListData?.data?.chats?.find(chat => chat._id === chatId);
+  const contact = currentChat?.startupId ? {
+    id: currentChat.startupId._id,
+    name: `${currentChat.startupId.profile?.founderFirstName || ""} ${currentChat.startupId.profile?.founderLastName || ""}`.trim() || currentChat.startupId.email,
+    avatar: "/assets/icons/User.svg",
+    status: "online", // TODO: Replace with real status
+    role: currentChat.startupId.profile?.companyName || ""
+  } : { id: chatId, name: "Unknown Contact", avatar: "/assets/icons/User.svg", status: "offline", role: "" };
+
+  // Real-time socket integration
+  const socket = useSocket({
+    onMessage: (msg) => {
+      if (msg.conversationId === chatId) {
+        setMessages(prev => [...prev, msg]);
+      }
+    },
+    onUserTyping: (data) => {
+      if (data.conversationId === chatId) {
+        setIsTyping(data.isTyping);
+      }
+    }
+  });
+
+  // Join chat room on mount/change
+  useEffect(() => {
+    if (chatId && socket.joinConversation) {
+      socket.joinConversation(chatId);
+    }
+    return () => {
+      if (chatId && socket.leaveConversation) {
+        socket.leaveConversation(chatId);
+      }
+    };
+    // eslint-disable-next-line
+  }, [chatId]);
+
+  // Load messages from API and transform them
+  useEffect(() => {
+    if (data && data.data && data.data.messages) {
+      console.log('Current User:', currentUser); // Debug log
+      const transformedMessages = data.data.messages.map(msg => {
+        console.log('Message:', msg.senderType, 'User Role:', currentUser?.role); // Debug log
+        const isMyMessage = msg.senderType === 'admin' && (currentUser?.role === 'admin' || currentUser?.role === 'super_admin');
+        return {
+          id: msg._id,
+          sender: msg.senderType === 'admin' ? 'Admin' : contact.name,
+          avatar: msg.senderType === 'admin' ? "/assets/icons/User.svg" : contact.avatar,
+          content: msg.content || "",
+          time: new Date(msg.createdAt).toLocaleTimeString(),
+          mine: isMyMessage,
+          image: msg.imageUrl || null
+        };
+      });
+      setMessages(transformedMessages);
+    }
+  }, [data, contact.name, contact.avatar, currentUser]);
+
+  // Handle sending a message
+  const handleSend = useCallback(
+    async (msg, file) => {
+      if (!msg && !file) return;
+      try {
+        // Send via REST for persistence
+        await sendMessage({ chatId, content: msg, file }).unwrap();
+        setInput("");
+      } catch (err) {
+        alert("Failed to send message");
+      }
+    },
+    [chatId, sendMessage, socket, refetch]
   );
 
-  // Find selected contact
-  const selectedContact = contacts.find(c => c.id === id) || filteredContacts[0];
-
-  // Reset messages when contact changes (for demo)
-  React.useEffect(() => {
-    setMessages(mockMessages);
-    setInput("");
-  }, [id]);
-
-  function handleSend(msg) {
-    setMessages(prev => [
-      ...prev,
-      {
-        id: prev.length + 1,
-        sender: "Me",
-        avatar: "",
-        content: msg,
-        time: "now",
-        mine: true
-      }
-    ]);
-    setInput("");
-  }
+  // Typing indicator
+  const handleTyping = useCallback(
+    (typing) => {
+      socket.sendTyping && socket.sendTyping(chatId, typing);
+    },
+    [chatId, socket]
+  );
 
   return (
     <AdminLayout>
@@ -177,23 +123,26 @@ export default function AdminChatPage() {
         </div>
         <div className="admin-chat-main">
           <AdminChatList
-            contacts={filteredContacts}
-            selectedId={selectedContact?.id}
+            selectedId={chatId}
             onSelect={contactId => navigate(`/admin/chat/${contactId}`)}
             search={search}
             onSearchChange={setSearch}
           />
           <div className="admin-chat-message-area">
-            {selectedContact ? (
+            {chatId ? (
               <AdminChatArea
-                contact={selectedContact}
+                contact={contact}
                 messages={messages}
                 value={input}
                 onChange={setInput}
                 onSend={handleSend}
-                onAttach={() => {}}
+                onAttach={file => handleSend("", file)}
                 onMic={() => {}}
                 onEmoji={() => {}}
+                isTyping={isTyping}
+                onTyping={handleTyping}
+                isLoading={isLoading}
+                error={error}
               />
             ) : (
               <div className="admin-chat-empty-state">

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './StartupChatPage.module.css';
 import Breadcrumb from '../../components/ui/Breadcrumb/Breadcrumb';
 import ChatSidebar from '../../components/layout/ChatSidebar/ChatSidebar';
 import ChatMessageArea from '../../components/layout/ChatMessageArea/ChatMessageArea';
 
 export default function StartupChatPage() {
+  const [searchQuery, setSearchQuery] = useState('');
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Chat', href: '/chat', isActive: true }
@@ -17,10 +18,8 @@ export default function StartupChatPage() {
       </div>
       
       <div className={styles.chatLayout}>
-        <div className={styles.sidebarContainer}>
-          <ChatSidebar />
-          <ChatMessageArea />
-        </div>
+        <ChatSidebar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <ChatMessageArea searchQuery={searchQuery} />
       </div>
     </div>
   );

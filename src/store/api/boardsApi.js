@@ -1,288 +1,112 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { api } from "./api";
 
-export const boardsApi = createApi({
-  reducerPath: 'boardsApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: '/api',
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.token
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`)
-      }
-      return headers
-    },
-  }),
-  tagTypes: ['Board', 'BoardColumn'],
+export const boardsApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    // Board Management
+    // Get all boards (admin)
     getBoards: builder.query({
-      query: (params = {}) => ({
-        url: '/boards',
+      query: (params) => ({
+        url: "/boards",
         params,
       }),
-      providesTags: ['Board'],
+      providesTags: ["Boards"],
     }),
-    
-    getBoardById: builder.query({
+    // Get a single board with tasks (admin or startup)
+    getBoard: builder.query({
       query: (id) => `/boards/${id}`,
-      providesTags: ['Board'],
+      providesTags: (result, error, id) => [{ type: "Board", id }],
     }),
-    
-    getMyBoards: builder.query({
-      query: (params = {}) => ({
-        url: '/boards/my-boards',
-        params,
-      }),
-      providesTags: ['Board'],
+    // Get board by sprint ID (admin)
+    getBoardBySprint: builder.query({
+      query: (sprintId) => `/boards/by-sprint/${sprintId}`,
+      providesTags: (result, error, sprintId) => [{ type: "Board", id: `sprint-${sprintId}` }],
     }),
-    
+    // Get board by sprint ID (startup, readonly)
+    getStartupBoardBySprint: builder.query({
+      query: (sprintId) => `/boards/startup/by-sprint/${sprintId}`,
+      providesTags: (result, error, sprintId) => [{ type: "Board", id: `startup-sprint-${sprintId}` }],
+    }),
+    // Create a board (admin)
     createBoard: builder.mutation({
-      query: (boardData) => ({
-        url: '/boards',
-        method: 'POST',
-        body: boardData,
+      query: (body) => ({
+        url: "/boards",
+        method: "POST",
+        body,
       }),
-      invalidatesTags: ['Board'],
+      invalidatesTags: ["Boards"],
     }),
-    
+    // Update a board (admin)
     updateBoard: builder.mutation({
-      query: ({ id, ...updateData }) => ({
+      query: ({ id, ...body }) => ({
         url: `/boards/${id}`,
-        method: 'PUT',
-        body: updateData,
+        method: "PUT",
+        body,
       }),
-      invalidatesTags: ['Board'],
+      invalidatesTags: (result, error, { id }) => [
+        "Boards",
+        { type: "Board", id },
+      ],
     }),
-    
+    // Delete (archive) a board (admin)
     deleteBoard: builder.mutation({
       query: (id) => ({
         url: `/boards/${id}`,
-        method: 'DELETE',
+        method: "DELETE",
       }),
-      invalidatesTags: ['Board'],
+      invalidatesTags: ["Boards"],
     }),
-    
-    archiveBoard: builder.mutation({
-      query: (id) => ({
-        url: `/boards/${id}/archive`,
-        method: 'POST',
+    // Add column to board (admin)
+    addColumn: builder.mutation({
+      query: ({ id, ...body }) => ({
+        url: `/boards/${id}/columns`,
+        method: "POST",
+        body,
       }),
-      invalidatesTags: ['Board'],
+      invalidatesTags: (result, error, { id }) => [
+        "Boards",
+        { type: "Board", id },
+      ],
     }),
-    
-    restoreBoard: builder.mutation({
-      query: (id) => ({
-        url: `/boards/${id}/restore`,
-        method: 'POST',
+    // Update column (admin)
+    updateColumn: builder.mutation({
+      query: ({ id, columnId, ...body }) => ({
+        url: `/boards/${id}/columns/${columnId}`,
+        method: "PUT",
+        body,
       }),
-      invalidatesTags: ['Board'],
+      invalidatesTags: (result, error, { id }) => [
+        "Boards",
+        { type: "Board", id },
+      ],
     }),
-    
-    // Column Management
-    addBoardColumn: builder.mutation({
-      query: ({ boardId, column }) => ({
-        url: `/boards/${boardId}/columns`,
-        method: 'POST',
-        body: column,
+    // Delete column (admin)
+    deleteColumn: builder.mutation({
+      query: ({ id, columnId }) => ({
+        url: `/boards/${id}/columns/${columnId}`,
+        method: "DELETE",
       }),
-      invalidatesTags: ['Board', 'BoardColumn'],
+      invalidatesTags: (result, error, { id }) => [
+        "Boards",
+        { type: "Board", id },
+      ],
     }),
-    
-    updateBoardColumn: builder.mutation({
-      query: ({ boardId, columnId, ...updateData }) => ({
-        url: `/boards/${boardId}/columns/${columnId}`,
-        method: 'PUT',
-        body: updateData,
-      }),
-      invalidatesTags: ['Board', 'BoardColumn'],
-    }),
-    
-    deleteBoardColumn: builder.mutation({
-      query: ({ boardId, columnId }) => ({
-        url: `/boards/${boardId}/columns/${columnId}`,
-        method: 'DELETE',
-      }),
-      invalidatesTags: ['Board', 'BoardColumn'],
-    }),
-    
-    reorderBoardColumns: builder.mutation({
-      query: ({ boardId, columnOrder }) => ({
-        url: `/boards/${boardId}/columns/reorder`,
-        method: 'PUT',
-        body: { columnOrder },
-      }),
-      invalidatesTags: ['Board', 'BoardColumn'],
-    }),
-    
-    // Board Templates
-    getBoardTemplates: builder.query({
-      query: () => '/boards/templates',
-      providesTags: ['Board'],
-    }),
-    
-    createBoardFromTemplate: builder.mutation({
-      query: ({ templateId, boardData }) => ({
-        url: `/boards/from-template/${templateId}`,
-        method: 'POST',
-        body: boardData,
-      }),
-      invalidatesTags: ['Board'],
-    }),
-    
-    saveBoardAsTemplate: builder.mutation({
-      query: ({ boardId, templateData }) => ({
-        url: `/boards/${boardId}/save-as-template`,
-        method: 'POST',
-        body: templateData,
-      }),
-      invalidatesTags: ['Board'],
-    }),
-    
-    // Board Permissions
-    getBoardPermissions: builder.query({
-      query: (boardId) => `/boards/${boardId}/permissions`,
-      providesTags: ['Board'],
-    }),
-    
-    updateBoardPermissions: builder.mutation({
-      query: ({ boardId, permissions }) => ({
-        url: `/boards/${boardId}/permissions`,
-        method: 'PUT',
-        body: { permissions },
-      }),
-      invalidatesTags: ['Board'],
-    }),
-    
-    addBoardMember: builder.mutation({
-      query: ({ boardId, userId, role }) => ({
-        url: `/boards/${boardId}/members`,
-        method: 'POST',
-        body: { userId, role },
-      }),
-      invalidatesTags: ['Board'],
-    }),
-    
-    removeBoardMember: builder.mutation({
-      query: ({ boardId, userId }) => ({
-        url: `/boards/${boardId}/members/${userId}`,
-        method: 'DELETE',
-      }),
-      invalidatesTags: ['Board'],
-    }),
-    
-    updateBoardMemberRole: builder.mutation({
-      query: ({ boardId, userId, role }) => ({
-        url: `/boards/${boardId}/members/${userId}/role`,
-        method: 'PUT',
-        body: { role },
-      }),
-      invalidatesTags: ['Board'],
-    }),
-    
-    // Board Analytics
+    // Get board analytics (admin)
     getBoardAnalytics: builder.query({
-      query: ({ boardId, period = '30d' }) => ({
-        url: `/boards/${boardId}/analytics`,
-        params: { period },
-      }),
-    }),
-    
-    getBoardTasksOverview: builder.query({
-      query: (boardId) => `/boards/${boardId}/tasks-overview`,
-      providesTags: ['Board'],
-    }),
-    
-    getBoardTeamPerformance: builder.query({
-      query: ({ boardId, period = '30d' }) => ({
-        url: `/boards/${boardId}/team-performance`,
-        params: { period },
-      }),
-    }),
-    
-    // Board Activity
-    getBoardActivity: builder.query({
-      query: ({ boardId, limit = 50, offset = 0 }) => ({
-        url: `/boards/${boardId}/activity`,
-        params: { limit, offset },
-      }),
-    }),
-    
-    // Board Export/Import
-    exportBoard: builder.mutation({
-      query: ({ boardId, format = 'json' }) => ({
-        url: `/boards/${boardId}/export`,
-        method: 'POST',
-        body: { format },
-      }),
-    }),
-    
-    importBoard: builder.mutation({
-      query: ({ file, boardName }) => {
-        const formData = new FormData()
-        formData.append('file', file)
-        formData.append('boardName', boardName)
-        
-        return {
-          url: '/boards/import',
-          method: 'POST',
-          body: formData,
-        }
-      },
-      invalidatesTags: ['Board'],
-    }),
-    
-    // Board Search
-    searchBoards: builder.query({
-      query: (searchParams) => ({
-        url: '/boards/search',
-        params: searchParams,
-      }),
-    }),
-    
-    // Board Favorites
-    toggleBoardFavorite: builder.mutation({
-      query: (boardId) => ({
-        url: `/boards/${boardId}/favorite`,
-        method: 'POST',
-      }),
-      invalidatesTags: ['Board'],
-    }),
-    
-    getFavoriteBoards: builder.query({
-      query: () => '/boards/favorites',
-      providesTags: ['Board'],
+      query: (id) => `/boards/${id}/analytics`,
+      providesTags: (result, error, id) => [{ type: "Board", id }],
     }),
   }),
-})
+});
 
 export const {
   useGetBoardsQuery,
-  useGetBoardByIdQuery,
-  useGetMyBoardsQuery,
+  useGetBoardQuery,
+  useGetBoardBySprintQuery,
+  useGetStartupBoardBySprintQuery,
   useCreateBoardMutation,
   useUpdateBoardMutation,
   useDeleteBoardMutation,
-  useArchiveBoardMutation,
-  useRestoreBoardMutation,
-  useAddBoardColumnMutation,
-  useUpdateBoardColumnMutation,
-  useDeleteBoardColumnMutation,
-  useReorderBoardColumnsMutation,
-  useGetBoardTemplatesQuery,
-  useCreateBoardFromTemplateMutation,
-  useSaveBoardAsTemplateMutation,
-  useGetBoardPermissionsQuery,
-  useUpdateBoardPermissionsMutation,
-  useAddBoardMemberMutation,
-  useRemoveBoardMemberMutation,
-  useUpdateBoardMemberRoleMutation,
+  useAddColumnMutation,
+  useUpdateColumnMutation,
+  useDeleteColumnMutation,
   useGetBoardAnalyticsQuery,
-  useGetBoardTasksOverviewQuery,
-  useGetBoardTeamPerformanceQuery,
-  useGetBoardActivityQuery,
-  useExportBoardMutation,
-  useImportBoardMutation,
-  useSearchBoardsQuery,
-  useToggleBoardFavoriteMutation,
-  useGetFavoriteBoardsQuery,
-} = boardsApi
+} = boardsApi;

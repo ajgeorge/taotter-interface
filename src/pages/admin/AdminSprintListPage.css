@@ -1,0 +1,153 @@
+.sprint-list-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.sprint-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.sprint-list-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #22223b;
+}
+
+.sprint-list-breadcrumb {
+  flex-shrink: 0;
+}
+
+.sprint-list-filters {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.search-container {
+  flex: 1;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.filter-container {
+  flex-shrink: 0;
+}
+
+.status-filter {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.sprints-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.sprint-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(34,34,59,0.04);
+  padding: 20px 18px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 210px;
+  transition: box-shadow 0.2s;
+}
+
+.sprint-card:hover {
+  box-shadow: 0 4px 16px rgba(34,34,59,0.10);
+}
+
+.sprint-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.sprint-name {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #22223b;
+  margin: 0;
+}
+
+.sprint-status {
+  font-size: 0.9rem;
+  color: #fff;
+  background: #6b7280;
+  border-radius: 6px;
+  padding: 3px 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.sprint-card-content {
+  margin-bottom: 12px;
+}
+
+.startup-info {
+  font-size: 1rem;
+  margin-bottom: 4px;
+  color: #374151;
+}
+
+.sprint-description {
+  font-size: 0.97rem;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.sprint-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+
+.sprint-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.view-board-btn {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+
+.view-board-btn:hover {
+  background: #2563eb;
+}
+
+.no-sprints, .loading, .error {
+  text-align: center;
+  color: #6b7280;
+  font-size: 1.1rem;
+  margin-top: 40px;
+}

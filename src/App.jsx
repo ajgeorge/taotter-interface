@@ -10,15 +10,18 @@ import {
   SprintOnboardingStep3,
   StartupChatPage
 } from './pages'
+import StartupBoardPage from './pages/startup/StartupBoardPage'
 import DashboardLayout from './layouts/DashboardLayout'
 import AdminLayout from './layouts/AdminLayout'
 import AdminProtectedRoute from './components/layout/AdminProtectedRoute'
+import StartupProtectedRoute from './components/layout/StartupProtectedRoute'
 import AdminDashboardPage from './pages/admin/DashboardPage'
 import AdminLoginPage from './pages/admin/AdminLoginPage'
 import TablePage from './pages/admin/TablePage'
 import RequestDetailPage from './pages/admin/RequestDetailPage'
 import AdminChatPage from './pages/admin/AdminChatPage'
 import BoardPage from './pages/admin/BoardPage'
+import AdminSprintListPage from './pages/admin/AdminSprintListPage'
 
 function App() {
   return (
@@ -31,15 +34,43 @@ function App() {
         <Route path="mvp" element={<MvpPage />} />
         <Route path="mvp/form" element={<MvpFormPage />} />
         <Route path="signup" element={<SignUpPage />} />
-        <Route path="login" element={<LoginPage />} />
+        <Route path="startup/login" element={<LoginPage />} />
         <Route path="sprint/status" element={<SprintStatusPage />} />
         <Route path="sprint/onboarding/step-1" element={<SprintOnboardingStep1 />} />
         <Route path="sprint/onboarding/step-2" element={<SprintOnboardingStep2 />} />
         <Route path="sprint/onboarding/step-3" element={<SprintOnboardingStep3 />} />
       </Route>
-      {/* Dashboard page with dashboard layout */}
-      <Route path="dashboard" element={<DashboardLayout><StartupDashboardPage /></DashboardLayout>} />
-      <Route path="chat/:id" element={<DashboardLayout><StartupChatPage /></DashboardLayout>} />
+<Route
+  path="/startup/sprint/:sprintId/board"
+  element={
+    <StartupProtectedRoute>
+      <DashboardLayout>
+        <StartupBoardPage />
+      </DashboardLayout>
+    </StartupProtectedRoute>
+  }
+/>
+{/* Dashboard page with dashboard layout */}
+<Route
+  path="dashboard"
+  element={
+    <StartupProtectedRoute>
+      <DashboardLayout>
+        <StartupDashboardPage />
+      </DashboardLayout>
+    </StartupProtectedRoute>
+  }
+/>
+<Route
+  path="chat/:id"
+  element={
+    <StartupProtectedRoute>
+      <DashboardLayout>
+        <StartupChatPage />
+      </DashboardLayout>
+    </StartupProtectedRoute>
+  }
+/>
       {/* Admin authentication */}
       <Route path="/admin/login" element={<AdminLoginPage />} />
       {/* Protected Admin routes */}
@@ -48,7 +79,8 @@ function App() {
       <Route path="/admin/request/:id" element={<AdminProtectedRoute><AdminLayout><RequestDetailPage /></AdminLayout></AdminProtectedRoute>} />
       <Route path="/admin/chat" element={<AdminProtectedRoute><AdminChatPage /></AdminProtectedRoute>} />
       <Route path="/admin/chat/:id" element={<AdminProtectedRoute><AdminChatPage /></AdminProtectedRoute>} />
-      <Route path="/admin/board" element={<AdminProtectedRoute><BoardPage /></AdminProtectedRoute>} />
+      <Route path="/admin/board" element={<AdminProtectedRoute><AdminSprintListPage /></AdminProtectedRoute>} />
+      <Route path="/admin/board/:sprintId" element={<AdminProtectedRoute><BoardPage /></AdminProtectedRoute>} />
     </Routes>
   )
 }

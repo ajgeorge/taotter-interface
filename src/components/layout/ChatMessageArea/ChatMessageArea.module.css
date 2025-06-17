@@ -9,7 +9,7 @@
   box-sizing: border-box;
   width: 100%;
   max-width: 600px;
-  flex: 1;
+  height: 500px;
 }
 
 .messageContainer {
@@ -17,6 +17,7 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+  height: 100%;
 }
 
 .messagesWrapper {
@@ -33,8 +34,8 @@
   gap: var(--spacing-6, 24px);
   flex: 1 0 0;
   width: 100%;
-  height: 748px;
-  overflow: hidden;
+  height: 400px;
+  overflow-y: auto;
 }
 
 .scrollbar {

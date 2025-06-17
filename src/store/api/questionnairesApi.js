@@ -61,6 +61,18 @@ export const questionnairesApi = createApi({
       }),
       providesTags: ['Questionnaire'],
     }),
+    getAdminQuestionnaireById: builder.query({
+      query: (id) => `/questionnaires/admin/${id}`,
+      providesTags: ['Questionnaire'],
+    }),
+    createSprintsForQuestionnaire: builder.mutation({
+      query: ({ id, sprints }) => ({
+        url: `/questionnaires/admin/${id}/create-sprint`,
+        method: 'POST',
+        body: { sprints },
+      }),
+      invalidatesTags: ['Questionnaire'],
+    }),
     
     getQuestionnaireById: builder.query({
       query: (id) => `/questionnaires/${id}`,
@@ -189,6 +201,8 @@ export const {
   useGetQuestionnaireAnalyticsQuery,
   useLinkQuestionnaireMutation,
   useGetAllAdminQuestionnairesQuery,
+  useGetAdminQuestionnaireByIdQuery,
+  useCreateSprintsForQuestionnaireMutation,
 } = questionnairesApi
 
 // Export aliases for store.js compatibility

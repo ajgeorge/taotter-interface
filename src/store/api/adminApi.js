@@ -41,7 +41,7 @@ export const adminApi = createApi({
     // User Management (Super Admin only)
     getAdmins: builder.query({
       query: (params = {}) => ({
-        url: '/admin/auth/users',
+        url: '/admin/users',
         params,
       }),
       providesTags: ['Admin'],

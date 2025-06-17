@@ -1,0 +1,12 @@
+/* Placeholder for StartupBoardPage styles. 
+   You can add custom styles here if needed. 
+   For now, this prevents Vite import errors. */
+
+.dashboard-layout {
+  min-height: 100vh;
+  background: linear-gradient(#fff 0%, #ece9e6 100%);
+}
+
+.board-page {
+  min-height: 100vh;
+}

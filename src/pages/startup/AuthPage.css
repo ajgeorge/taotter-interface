@@ -1,6 +1,5 @@
 /* SignUp Page Styles */
 .signup-page {
-  min-height: 100vh;
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -72,10 +71,9 @@
 
 /* Main Content */
 .signup-main {
-  flex: 1;
-  padding: 24px 0;
+  padding: 8px 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   width: 100%;
 }
@@ -180,7 +178,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .password-input-container {
@@ -379,4 +377,18 @@
 .checkbox-container:focus-within .checkbox-custom {
   outline: 2px solid #087fc0;
   outline-offset: 2px;
+}
+
+/* Startup Login Page Customizations */
+.signup-inputs label {
+  color: #000 !important;
+}
+.signup-inputs input,
+.signup-inputs input[type="email"],
+.signup-inputs input[type="password"] {
+  background: #fff !important;
+  color: #1d2939;
+}
+.signup-title-section {
+  margin-top: 32px;
 }

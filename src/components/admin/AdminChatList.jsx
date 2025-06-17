@@ -1,13 +1,40 @@
 import React from "react";
 import "./AdminChatList.css";
+import { useGetChatListQuery } from "../../store/api/chatApi";
 
 export default function AdminChatList({
-  contacts,
   selectedId,
   onSelect,
   search,
   onSearchChange
 }) {
+  const { data, isLoading, error } = useGetChatListQuery();
+
+  let contacts = [];
+  if (data && data.data && data.data.chats) {
+    contacts = data.data.chats.map(chat => {
+      const startup = chat.startupId;
+      return {
+        id: chat._id,
+        name: startup?.profile
+          ? `${startup.profile.founderFirstName || ""} ${startup.profile.founderLastName || ""}`.trim()
+          : startup?.email || "Unknown",
+        role: startup?.profile?.companyName || "",
+        avatar: "/assets/icons/User.svg",
+        status: "online", // TODO: Replace with real online status if available
+        lastActive: chat.lastMessageAt
+          ? new Date(chat.lastMessageAt).toLocaleString()
+          : "",
+      };
+    });
+  }
+
+  // Filter contacts by search
+  const filteredContacts = contacts.filter(c =>
+    c.name.toLowerCase().includes((search || "").toLowerCase()) ||
+    c.role.toLowerCase().includes((search || "").toLowerCase())
+  );
+
   return (
     <aside className="admin-chat-list">
       <div className="admin-chat-list__header">
@@ -33,7 +60,9 @@ export default function AdminChatList({
         </span>
       </div>
       <div className="admin-chat-list__contacts">
-        {contacts.map(contact => (
+        {isLoading && <div>Loading chats...</div>}
+        {error && <div style={{ color: "red" }}>Failed to load chats.</div>}
+        {filteredContacts.map(contact => (
           <div
             key={contact.id}
             className={`admin-chat-list__contact${selectedId === contact.id ? " admin-chat-list__contact--selected" : ""}`}
